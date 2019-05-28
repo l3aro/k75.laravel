@@ -11,5 +11,9 @@
 |
 */
 
+Route::get('', 'DashboardController@index');
 
-Route::get("test", 'DashboardController@test');
+Route::resource('products', 'ProductController', [
+    'as' => 'admin',
+    'except' => 'show'
+]);
