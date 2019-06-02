@@ -17,3 +17,5 @@ Route::resource('products', 'ProductController', [
     'as' => 'admin',
     'except' => 'show'
 ]);
+
+Route::get('articles', 'ArticleController@index');
