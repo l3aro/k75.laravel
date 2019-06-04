@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = \DB::table("articles")
+        $articles = Article::where('id','1')
         // ->select("title", "author as author_name")
         // ->where('id','1')
         // ->where('title','like','%món%') // < > <= >= = like
@@ -32,11 +34,30 @@ class ArticleController extends Controller
         // ->where('created_at', '>=', '2019-05-29')
         // ->where('created_at', '<', '2019-05-31')
         // ->whereBetween('created_at', ['2019-05-29','2019-05-31'])
-        ->offset(2)
+        // ->offset(2)
         // ->limit(3)
         ->get();
         // $article = \DB::table("articles")->first();
         // print_r($articles);die;
         return view('admin.articles', compact('articles'));
+    }
+
+    public function store(Request $request)
+    {
+        Article::create($request->all());
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('admin.show_article', compact('article'));
+    }
+
+    public function update(Request $request, $id)
+    {       
+        $article = Article::findOrFail($id);
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->save();
     }
 }

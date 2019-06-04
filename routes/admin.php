@@ -19,3 +19,7 @@ Route::resource('products', 'ProductController', [
 ]);
 
 Route::get('articles', 'ArticleController@index');
+Route::post('articles', 'ArticleController@store');
+
+Route::get('articles/{id}/edit', 'ArticleController@edit');
+Route::post('articles/{id}', 'ArticleController@update');
